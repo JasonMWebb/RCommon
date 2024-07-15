@@ -241,6 +241,25 @@ namespace RCommon.Persistence.EFCore.Tests
             var predicate = PredicateBuilder.True<Customer>(); // This allows us to build compound expressions
             predicate.And(x => x.FirstName.StartsWith("Ho"));
 
+            var customers = customerRepo
+                    .FindQuery(predicate).ToList();
+
+            Assert.That(customers != null);
+            Assert.That(customers.Count == 100);
+            Assert.That(customers[4].FirstName == "Homer");
+        }
+
+        [Test]
+        public async Task Can_Find_Using_Predicate_Builder()
+        {
+            var repo = new TestRepository(this.ServiceProvider);
+            repo.Prepare_Can_query_using_predicate_builder();
+
+            var customerRepo = this.ServiceProvider.GetService<IGraphRepository<Customer>>();
+
+            var predicate = PredicateBuilder.True<Customer>(); // This allows us to build compound expressions
+            predicate.And(x => x.FirstName.StartsWith("Ho"));
+
             var customers = await customerRepo
                     .FindAsync(predicate, x => x.LastName, true, 1, 10);
 

@@ -1,4 +1,5 @@
-﻿using RCommon.EventHandling.Producers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RCommon.EventHandling.Producers;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -11,10 +12,12 @@ namespace RCommon.Entities
     public class InMemoryEntityEventTracker : IEntityEventTracker
     {
         private readonly ICollection<IBusinessEntity> _businessEntities = new List<IBusinessEntity>();
+        private readonly IServiceProvider _serviceProvider;
         private readonly IEventRouter _eventRouter;
 
-        public InMemoryEntityEventTracker(IEventRouter eventRouter)
+        public InMemoryEntityEventTracker(IServiceProvider serviceProvider, IEventRouter eventRouter)
         {
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             this._eventRouter = eventRouter ?? throw new ArgumentNullException(nameof(eventRouter));
         }
 
@@ -33,17 +36,22 @@ namespace RCommon.Entities
 
         public async Task<bool> EmitTransactionalEventsAsync()
         {
-            foreach (var entity in this._businessEntities)
+            using (var scope = _serviceProvider.CreateScope())
             {
-                var entityGraph = entity.TraverseGraphFor<IBusinessEntity>();
-
-                foreach (var graphEntity in entityGraph)
+                foreach (var entity in this._businessEntities)
                 {
-                    _eventRouter.AddTransactionalEvents(graphEntity.LocalEvents);
+                    var entityGraph = entity.TraverseGraphFor<IBusinessEntity>();
+
+                    foreach (var graphEntity in entityGraph)
+                    {
+                        _eventRouter.AddTransactionalEvents(graphEntity.LocalEvents);
+                    }
                 }
+                await _eventRouter.RouteEventsAsync();
+                return await Task.FromResult(true);
+
             }
-            await _eventRouter.RouteEventsAsync();
-            return await Task.FromResult(true);
+                
         }
     }
 }
