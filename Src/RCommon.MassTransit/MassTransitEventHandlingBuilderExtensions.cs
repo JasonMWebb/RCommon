@@ -87,6 +87,11 @@ namespace RCommon
         {
             builder.Services.AddTransient<ISubscriber<TEvent>, TEventHandler>();
             builder.AddConsumer<MassTransitEventHandler<TEvent>>();
+
+            //Guard.Against<UnsupportedSubscriberException>(dataStoreName.IsNullOrEmpty(), "You must set a name for the Data Store");
+
+            builder.Services.TryAddTransient<ISubscriberFactory, SubscriberFactory>();
+            builder.Services.Configure<SubscriberFactoryOptions>(options => options.Register<TDbContext>(dataStoreName));
         }
 
     }
