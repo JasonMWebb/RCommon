@@ -13,7 +13,16 @@ namespace RCommon.Persistence
 
         public void Register<T>(string name) where T : IDataStore
         {
-            Types.Add(name, typeof(T));
+            string dataSourceName = DataSourceUtils.FormatDataSourceName(name, typeof(T));
+
+            try
+            {
+                Types.Add(dataSourceName, typeof(T));
+            }
+            catch (Exception)
+            {
+                throw new DataStoreException($"Cannot add duplicate datastore name of: {name} for type: {dataSourceName} with a key of: {dataSourceName}");
+            }
         }
     }
 }

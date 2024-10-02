@@ -20,25 +20,16 @@ namespace RCommon.Persistence
             _types = options.Value.Types;
         }
 
-        public IDataStore Resolve(string name)
-        {
-            if (_types.TryGetValue(name, out var type))
-            {
-                return (IDataStore)_provider.GetRequiredService(type);
-            }
-
-            throw new DataStoreNotFoundException($"DataStore with name of {name} not found");
-        }
-
         public TDataStore Resolve<TDataStore>(string name)
             where TDataStore : IDataStore
         {
-            if (_types.TryGetValue(name, out var type))
+            string dataSourceName = DataSourceUtils.FormatDataSourceName(name, typeof(TDataStore));
+            if (_types.TryGetValue(dataSourceName, out var type))
             {
                 return (TDataStore)_provider.GetRequiredService(type);
             }
 
-            throw new DataStoreNotFoundException($"DataStore with name of {name} not found");
+            throw new DataStoreNotFoundException($"DataStore with name of {name} not found for type: {typeof(TDataStore).GetGenericTypeName()} using key of: {dataSourceName}");
         }
     }
 }
