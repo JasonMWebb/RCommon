@@ -29,7 +29,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Tests\RCommon.TestBase\RCommon.TestBase.csproj" />
 		<ProjectReference Include="..\HR.LeaveManagement.Application\HR.LeaveManagement.Application.csproj" />
 	</ItemGroup>
 </Project>

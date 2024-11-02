@@ -147,6 +147,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mediator", "Mediator", "{6C1DEC4A-1F41-458B-9C14-74399516CC99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCommon.Persistence.Caching.Tests", "..\Tests\RCommon.Persistence.Caching.Tests\RCommon.Persistence.Caching.Tests.csproj", "{B2112C06-CC7F-450A-964A-C2E8CF30A33F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -367,6 +369,10 @@ Global
 		{7B5600C0-420E-4713-BBF7-B53F183F8048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B5600C0-420E-4713-BBF7-B53F183F8048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B5600C0-420E-4713-BBF7-B53F183F8048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2112C06-CC7F-450A-964A-C2E8CF30A33F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2112C06-CC7F-450A-964A-C2E8CF30A33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2112C06-CC7F-450A-964A-C2E8CF30A33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2112C06-CC7F-450A-964A-C2E8CF30A33F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -428,6 +434,7 @@ Global
 		{7B5600C0-420E-4713-BBF7-B53F183F8048} = {F52A5CE5-42A2-45A6-A5A5-468B15AC8F7B}
 		{F52A5CE5-42A2-45A6-A5A5-468B15AC8F7B} = {0AF37317-F10E-47E8-A4C8-9EA886E00E40}
 		{6C1DEC4A-1F41-458B-9C14-74399516CC99} = {0AF37317-F10E-47E8-A4C8-9EA886E00E40}
+		{B2112C06-CC7F-450A-964A-C2E8CF30A33F} = {42AC96AA-056F-4159-87BA-A16FC12504AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B0CD26D-8067-4667-863E-6B0EE7EDAA42}
